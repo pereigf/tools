@@ -1,9 +1,9 @@
 #CRIE UM TXT COM OS SERVIDORES QUE VOCÊ QUER CONSULTAR E ADICIONE O LOCAL DELE ABAIXO.
-$listservers = Get-Content -Path 'C:\Temp\ad_teste.txt'
+$listcomputers = Get-Content -Path 'C:\Temp\ListaServidores.txt'
 $accountname = 'NomeDaConta'
 #ADICIONE O NOME DA CONTA NA VÁRIAVEL $ACCOUNTNAME
 
-foreach ($computer in $listservers) {
+foreach ($computer in $listcomputers) {
     
     $services = Get-WmiObject Win32_Service | Select-Object name,startname
     foreach ($service in $services) {
