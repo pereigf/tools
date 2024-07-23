@@ -1,0 +1,1 @@
+Set-DnsClientServerAddress -InterfaceIndex 1 -ServerAddresses ("10.156.81.12","10.156.4.18")
