@@ -1,4 +1,3 @@
-#https://www.ajtek.ca/wsus/client-machines-not-reporting-to-wsus-properly/
 
 Stop-Service -Name BITS, wuauserv -Force
 Remove-ItemProperty -Name AccountDomainSid, PingID, SusClientId, SusClientIDValidation -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\ -ErrorAction SilentlyContinue
