@@ -1,0 +1,78 @@
+1. O que é o Robocopy?
+
+Robocopy (Robust File Copy) é uma ferramenta de linha de comando incluída no Windows, projetada para replicar e sincronizar diretórios. É mais eficiente e oferece mais opções do que os comandos copy ou xcopy.
+
+2. Sintaxe Básica
+
+A sintaxe básica do Robocopy é: Robocopy [origem] [destino] [arquivos] [opções]
+
+[origem]: O diretório de origem de onde os arquivos serão copiados.
+[destino]: O diretório de destino para onde os arquivos serão copiados.
+[arquivos]: (Opcional) Especifica os arquivos a serem copiados (por exemplo, *.txt para copiar todos os arquivos .txt).
+[opções]: (Opcional) Define as opções que controlam o comportamento da cópia.
+
+
+3. Opções Principais
+
+Aqui estão algumas das principais opções que podem ser usadas com o Robocopy:
+
+3.1. Opções de Arquivo
+
+/S: Copia subdiretórios, mas omite os vazios.
+/E: Copia subdiretórios, incluindo os vazios.
+/A: Copia somente arquivos com o atributo de arquivo.
+/M: Copia arquivos com o atributo de arquivo e o remove após a cópia.
+/XA:[Atributo]: Exclui arquivos com os atributos especificados (R, H, S, etc.).
+
+3.2. Opções de Retransmissão e Reintentos
+
+/R: Número de tentativas em caso de falha na cópia (padrão é 1 milhão).
+/W: Intervalo de espera entre tentativas, em segundos (padrão é 30 segundos).
+/TBD: Aguarda a reconexão de uma unidade de rede temporariamente indisponível.
+
+3.3. Opções de Logging e Saída
+
+/LOG:[Arquivo]: Gera um log da operação em um arquivo.
+/V: Produz uma saída detalhada.
+/NP: Não exibe a porcentagem copiada.
+/TEE: Exibe a saída na tela e também a grava no arquivo de log.
+
+3.4. Opções de Cópia e Sincronização
+
+/MIR: Espelha uma árvore de diretórios (equivalente a /E + /PURGE).
+/MOV: Move arquivos e diretórios, excluindo-os da origem após a cópia.
+/COPY:[DATO]: Especifica o que copiar (D - Dados, A - Atributos, T - Timestamp, O - Informações do proprietário).
+
+3.5. Opções de Data e Hora
+
+/MAXAGE: Copia apenas arquivos mais recentes que a data especificada.
+/MINAGE: Copia apenas arquivos mais antigos que a data especificada.
+/FFT: Assume uma diferença de tempo de dois segundos entre arquivos de FAT e NTFS.
+
+4. Exemplos de Uso
+
+4.1. Copiar uma Pasta e Seus Subdiretórios (Incluindo Vazios)
+
+
+Robocopy C:\Fonte D:\Destino /E
+
+4.2. Espelhar o Conteúdo de Um Diretório
+
+Robocopy C:\Fonte D:\Destino /MIR
+
+4.3. Mover Arquivos e Excluir da Origem
+
+Robocopy C:\Fonte D:\Destino /MOV
+
+4.4. Criar um Log de Cópia Detalhado
+
+Robocopy C:\Fonte D:\Destino /LOG:C:\log\robocopy.txt /V
+
+4.5. Excluir Arquivos Específicos da Cópia
+
+
+Robocopy C:\Fonte D:\Destino /XF *.tmp
+
+4.6. Definir Número de Tentativas e Intervalo de Espera
+
+Robocopy C:\Fonte D:\Destino /R:5 /W:10

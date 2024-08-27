@@ -1,0 +1,1 @@
+w32tm /config /manualpeerlist:"a.st1.ntp.br, b.st1.ntp.br, c.st1.ntp.br, d.st1.ntp.br" /syncfromflags:manual /reliable:YES /update
