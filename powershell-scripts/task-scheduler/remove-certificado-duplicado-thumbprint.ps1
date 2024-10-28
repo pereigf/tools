@@ -1,0 +1,1 @@
+-Command "Get-ChildItem -Recurse Cert:\LocalMachine\Root | Where-Object { $_.Thumbprint -eq '63D6880640AF301195BE64EA116EC13C45D9F1CE' } | Select-Object -Skip 1 | ForEach-Object { Remove-Item -Path $_.PSPath -DeleteKey }"
