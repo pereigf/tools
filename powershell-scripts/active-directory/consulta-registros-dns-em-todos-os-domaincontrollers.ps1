@@ -1,16 +1,16 @@
 <#
-'Como utilizar
+'Como utilizar - LEIA-ME ANTES DE EXECUTAR
 '------------------------------------------------------------------------------------
 '1 - Crie a pasta "Temp" dentro do diretório C:\"
-'2 - Crie um arquivo do tipo texto chamado "ListaBuscaDNS.txt" e deixe ele dentro de C:\Temp"
-'3 - Adicione todos os IP's dos registros de DNS que você deseja buscar, dentro do arquivo "C:\Temp\ListaChecagemDNS.txt"
+'2 - Crie um arquivo do tipo texto chffffffffffffffffffffffffffffffffffffffffamado "ListaBuscaDNS.txt" e deixe ele dentro de C:\Temp"
+'3 - Adicione todos os IP's dos registros de DNS que você deseja consultar a existência, dentro do arquivo "C:\Temp\ListaChecagemDNS.txt"
 '4 - Caso for necessário, altere a 12º linha de código para indicar a OU de Domain Controllers do seu ambiente.
 '5 - Caso você deseje validar se o registro DNS está dentro de todos os controladores de dominio, todas as linhas de código que possuirem a função "break", comente elas com o simbolo #
 #>
 
 # Define a quantidade máxima de servidores por bloco, devido à limitação do Resolve-DnsName para até 5 servidores de AD por vez.
 $maxServidoresPorBloco = 5
-$ServidoresAD = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers,DC=ambiental,DC=corp" | Select-Object -ExpandProperty Name
+$ServidoresAD = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers,DC=contoso,DC=corp" | Select-Object -ExpandProperty Name
 $ListaBuscaDNS = Get-Content -Path 'C:\Temp\ListaBuscaDNS.txt'
 
 function BuscaRegistroDNS {

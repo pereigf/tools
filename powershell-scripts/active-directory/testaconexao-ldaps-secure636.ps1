@@ -1,7 +1,7 @@
 Function Test-LDAPConnection {
 
                
-    $DCs = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers, DC=teste, DC=corp"
+    $DCs = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers, DC=contoso, DC=corp"
     #OU VOCÊ PODE ADICIONAR OS SERVIDORES EM UM ARQUIVO DE TEXTO
     #$DCs = Get-Content "C:\Temp\ListaDomainControllers.txt"
     $Port = "636" 

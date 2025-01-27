@@ -1,0 +1,1 @@
+et-LocalUser -Name "BRK100" -Password (ConvertTo-SecureString "SUASENHA" -AsPlainText -Force)

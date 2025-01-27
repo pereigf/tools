@@ -2,7 +2,7 @@
 $Computers = Get-Content -Path 'C:\Temp\ListaChecagem.txt' 
 
 #BUSCA EM TODO O DOMINIO
-$BuscaAD = Get-ADComputer -Filter * -SearchBase "DC=ambiental,DC=corp" | Select-Object -ExpandProperty Name
+$BuscaAD = Get-ADComputer -Filter * -SearchBase "DC=contoso,DC=corp" | Select-Object -ExpandProperty Name
 
 function BuscaRegistroDNS {
 

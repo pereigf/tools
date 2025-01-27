@@ -1,0 +1,1 @@
+Add-LocalGroupMember -member "ADM100" -Group "Administrators, Remote Desktop Users"
