@@ -1,44 +1,29 @@
-# Lê a lista de servidores do arquivo C:\Temp\ListaChecagem.txt
-$servidores = Get-Content -Path "C:\Temp\DomainControllers-Ambiental.txt"
+# Diretório dos servidores de busca
+$Computers = Get-Content -Path 'C:\Temp\Servers_WSUS_History.txt'
 
-# Cria listas para armazenar as informações
-$report = @()
-$failedServers = @()
+# Adicionar os KBs que você está buscando
+$ConsultarKBs = @("KB5035885", "KB5026372") # Adicione mais KBs conforme necessário
 
-foreach ($Server in $servidores) {
-    try {
-        Write-Host "Tentativa de coleta de informações do ambiente: $Server" -ForegroundColor Green
-        $hotfixes = Get-HotFix -Description Security* -ComputerName $Server | Sort-Object -Property InstalledOn -Descending
-        $osVersion = (Get-WmiObject -Class Win32_OperatingSystem -Namespace "root\cimv2" -ComputerName $Server).Caption
+# Caminho de saída
+$outputPath = "C:\Temp\Output\$(get-date -f yyyy-MM-dd)-KBs-Faltando-Servidores.txt"
 
-        foreach ($hotfix in $hotfixes[0..3]) {
-            $kb = $hotfix.HotFixID
-            $details = Get-WmiObject -Class Win32_QuickFixEngineering -Filter "HotFixID='$kb'" -ComputerName $Server
-            $report += [PSCustomObject]@{
-                'Destino' = $Server
-                'SO' = $osVersion
-                'KB' = $kb
-                'Descricao' = $details.Description
-                'Data de Instalacao' = $hotfix.InstalledOn
+# Limpar o conteúdo do arquivo de saída anterior
+Clear-Content -Path $outputPath -ErrorAction SilentlyContinue
+
+foreach ($computername in $Computers) {
+    foreach ($KB in $ConsultarKBs) {
+        try {
+            if (Get-HotFix -Id $KB -ComputerName $computername -ErrorAction SilentlyContinue) {
+                Write-Host "O $KB foi encontrado instalado no ambiente $computername." -ForegroundColor Green
+            } else {
+                Write-Host "O $KB não foi encontrado instalado no ambiente $computername." -ForegroundColor Red
+                Add-Content -Path $outputPath -Value "$computername - $KB"
             }
-        }
-    } catch {
-        Write-Host "Não foi possível obter informações do ambiente: $Server" -ForegroundColor Red
-        $failedServers += [PSCustomObject]@{
-            'Servidor' = $Server
-            'Status' = "Falha ao coletar informacoes"
+        } catch {
+            Add-Content -Path $outputPath -Value "$computername - $KB"
+            Write-Host "Ocorreu um problema com a comunicação no ambiente $computername $_" -ForegroundColor Red
         }
     }
 }
 
-# Define os caminhos para salvar os arquivos CSV
-$csvPath = "C:\Temp\Output\RelatorioHotfixes.csv"
-$failedCsvPath = "C:\Temp\Output\FalhaColetaHotfixes.csv"
-
-# Exporta os dados para arquivos CSV
-$report | Export-Csv -Path $csvPath -NoTypeInformation -Encoding UTF8
-$failedServers | Export-Csv -Path $failedCsvPath -NoTypeInformation -Encoding UTF8
-
-Write-Host ""
-Write-Host "Relatório de hotfixes exportado para $csvPath" -ForegroundColor Cyan
-Write-Host "Relatório de falhas exportado para $failedCsvPath" -ForegroundColor Cyan
+Write-Host "Gerando Relatório e Armazenando em: $outputPath" -ForegroundColor Cyan
