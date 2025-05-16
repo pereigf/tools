@@ -19,7 +19,7 @@ foreach ($computername in $Computers) {
 
     Write-Host "Copiando para " $computername
 
-    $file = "\\SRVWKST02-DC.ambiental.corp\Tools\Powershell 7\PowerShell-7.3.6-win-x64.msi"
+    $file = "\\SRVWKST02-DC.contoso.corp\Tools\Powershell 7\PowerShell-7.3.6-win-x64.msi"
 
     New-PSDrive -Name J -PSProvider FileSystem -Root "\\$computername\C$" -Credential $Cred
     Copy-Item -Path $file -Destination "\\$computername\C$\Temp" -Recurse -Verbose

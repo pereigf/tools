@@ -1,5 +1,5 @@
 # Definir a OU para busca
-$ou = "OU=Workstations,OU=CACHOEIRO,OU=ES,OU=BR,OU=RJ_ES,OU=Ambiental,DC=ambiental,DC=corp"
+$ou = "OU=Workstations,OU=TST,OU=ES,OU=BR,OU=AE,OU=TEST,DC=contoso,DC=corp"
 
 # Definir o caminho do arquivo CSV
 $csvPath = "C:\Temp\relatorio.csv"
