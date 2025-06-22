@@ -1,7 +1,3 @@
-$Username = 'contoso\user'
-$Password = ''
-$pass = ConvertTo-SecureString -AsPlainText $Password -Force
-$Cred = New-Object System.Management.Automation.PSCredential -ArgumentList $Username,$pass
 
 # Script para instalar o módulo PSWindowsUpdate caso não esteja disponível
 $comando = {
@@ -20,7 +16,7 @@ $computers = Get-Content -Path 'C:\Temp\Servers_Updates.txt'
 
 $computers | foreach {
     try {
-        (Invoke-Command -ComputerName $_ -ScriptBlock $comando -Credential $Cred -Verbose)
+        (Invoke-Command -ComputerName $_ -ScriptBlock $comando -Verbose)
     }
     catch {
         Write-Host "Ocorreu um problema com o ambiente: $_"
